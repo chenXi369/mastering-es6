@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise的用法和使用场景</title>
+</head>
+
+<body>
+    <script>
+        function async() {
+            console.log(0)
+            return new Promise((resolve, reject) => {
+                if (1 === 1) {
+                    resolve()
+                    console.log(111111111)
+                } else {
+                    console.log("错误返回")
+                    reject(new Error())
+                }
+            }).then(() => {
+                console.log(222222222)
+            })
+        }
+        this.async().finally(() => {
+            if (2 === 2) {
+                console.log(333333333)
+            }
+        })
+        console.log(44444444)
+    </script>
+
+    <script>
+        Promise.resolve()
+            .then(() => {
+                console.log("then1")
+                Promise.resolve()
+                    .then(() => {
+                        console.log("then1-1")
+                    }).then(() => {
+                        console.log("then1-2")
+                    })
+            }).then(() => {
+                console.log("then2")
+            }).then(() => {
+                console.log("then3")
+            })
+    </script>
+
+    <script>
+        let p = Promise.resolve();
+
+        p.then(() => {
+            console.log("then1");
+            Promise.resolve().then(() => {
+                console.log("then1-1");
+            });
+        }).then(() => {
+            console.log("then1-2");
+        });
+
+        p.then(() => {
+            console.log("then2");
+            Promise.resolve().then(() => {
+                console.log("then2-1");
+            });
+        }).then(() => {
+            console.log("then2-2");
+        })
+    </script>
+
+    <script>
+        let q = Promise.resolve().then(() => {
+            console.log("then1"); 
+            Promise.resolve().then(() => {
+                console.log("then1-1");
+            });
+        }).then(() => {
+            console.log("then2");
+        });
+
+        q.then(() => {
+            console.log("then3");
+        });
+    </script>
+</body>
+
+</html>
