@@ -73,7 +73,7 @@
 
     <script>
         let q = Promise.resolve().then(() => {
-            console.log("then1"); 
+            console.log("then1");
             Promise.resolve().then(() => {
                 console.log("then1-1");
             });
@@ -84,6 +84,53 @@
         q.then(() => {
             console.log("then3");
         });
+    </script>
+
+
+    <!-- 猜一猜打印顺序 -->
+    <script>
+        console.log("猜一猜打印顺序")
+        Promise.resolve()
+            .then(() => {
+                console.log("then1")
+                Promise.resolve()
+                    .then(() => {
+                        console.log("then1-1")
+                        return 1
+                    }).then(() => {
+                        console.log("then1-2")
+                    })
+            })
+            .then(() => {
+                console.log("then2")
+            }).then(() => {
+                console.log("then3")
+            }).then(() => {
+                console.log("then4")
+            })
+    </script>
+
+    <!-- 猜一猜打印顺序 plus -->
+    <script>
+        console.log("猜一猜打印顺序 plus")
+        Promise.resolve()
+            .then(() => {
+                console.log("then1")
+                Promise.resolve()
+                    .then(() => {
+                        console.log("then1-1")
+                        return Promise.resolve()
+                    }).then(() => {
+                        console.log("then1-2")
+                    })
+            })
+            .then(() => {
+                console.log("then2")
+            }).then(() => {
+                console.log("then3")
+            }).then(() => {
+                console.log("then4")
+            })
     </script>
 </body>
 

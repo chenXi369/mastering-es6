@@ -87,3 +87,63 @@ let q = Promise.resolve().then(() => {
 
 
 
+#### 延伸
+
+`then1-2` 会在何时打印？
+
+```js
+console.log("猜一猜打印顺序")
+        Promise.resolve()
+            .then(() => {
+                console.log("then1")
+                Promise.resolve()
+                    .then(() => {
+                        console.log("then1-1")
+                        return 1
+                    }).then(() => {
+                        console.log("then1-2")
+                    })
+            })
+            .then(() => {
+                console.log("then2")
+            }).then(() => {
+                console.log("then3")
+            }).then(() => {
+                console.log("then4")
+            })
+```
+
+```js
+console.log("猜一猜打印顺序 plus")
+        Promise.resolve()
+            .then(() => {
+                console.log("then1")
+                Promise.resolve()
+                    .then(() => {
+                        console.log("then1-1")
+                        return Promise.resolve()
+                    }).then(() => {
+                        console.log("then1-2")
+                    })
+            })
+            .then(() => {
+                console.log("then2")
+            }).then(() => {
+                console.log("then3")
+            }).then(() => {
+                console.log("then4")
+            })
+```
+
+**Ps:  `then` 返回一个新的 Promise，并且会用这个 Promise 去 `resolve` 返回值。**
+
+
+
+当 `Promise resolve` 了一个 Promise 时，会产生一个`NewPromiseResolveThenableJob`，这是属于 Promise Jobs 中的一种，也就是微任务。
+
+> This Job uses the supplied thenable and its then method to resolve the given promise. This process must take place as a Job to ensure that the evaluation of the then method occurs after evaluation of any surrounding code has completed.
+
+并且该 Jobs 还会调用一次 `then` 函数来 `resolve Promise`，这也就又生成了一次微任务。
+
+这就是为什么会触发两次微任务的来源。
+
