@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>深入理解Async和Await</title>
+</head>
+
+<body>
+    <!-- 猜猜看打印了什么 -->
+    <script>
+        async function testAsy1() {
+            return 'hello world'
+        }
+        let result1 = testAsy1()
+        console.log(result1)      // 一个 Promise
+    </script>
+
+    <script>
+        async function testAsy2() {
+            return 'hello world'
+        }
+        let result2 = testAsy2()
+        console.log(result2)
+        result2.then(v => {
+            console.log(v)   //hello world
+        })
+    </script>
+
+    <script>
+        function testAsy3(x) {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    resolve(x);
+                }, 3000)
+            }
+            )
+        }
+        async function testAwt() {
+            let result = await testAsy3('3秒后的hello world');
+            console.log(result);    // 3秒钟之后出现hello world
+        }
+        testAwt();
+    </script>
+</body>
+
+</html>
