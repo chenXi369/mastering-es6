@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Function Skill</title>
+</head>
+
+<body>
+    <!-- 1、函数自治性 -->
+    <script>
+        const Func = function () {
+            console.log("函数自执行一")
+        }();                    // 常用
+
+        (function () {
+            console.log("函数自执行二")
+        })                      // 常用
+
+            (function () {
+                console.log("函数自执行三")
+            }())                    // 常用
+
+            // 然后是一些不常用的
+            // [function () {
+            //     console.log("不常用的函数自执行四")
+            // }()]
+
+            + function () {
+                console.log("不常用的函数自执行五")
+            }()
+            - function () {
+                console.log("不常用的函数自执行六")
+            }()
+        ! function () {
+            console.log("不常用的函数自执行七")
+        }
+
+        new function () {
+            console.log("不常用的函数自执行八")
+        }
+        new function () {
+            console.log("不常用的函数自执行九")
+        }()
+        void function () {
+            console.log("不常用的函数自执行十")
+        }()
+        typeof function () {
+            console.log("不常用的函数自执行十一")
+        }()
+        delete function () {
+            console.log("不常用的函数自执行十二")
+        }()
+
+        1, function () {
+            console.log("不常用的函数自执行十三")
+        }()
+        1 > function () {
+            console.log("不常用的函数自执行十四")
+        }()
+    </script>
+
+    <!-- 2、隐式返回值 -->
+    <script>
+        // 只能用于 单语句返回值箭头函数 如果返回值是对象必须使用（）包住
+        const Func1 = function (name) {
+            return "I Love" + name
+        }
+        // 换成
+        const Func2 = name => "I Love" + name
+    </script>
+
+    <!-- 3、一次性函数 -->
+    <script>
+        // 适用于运行一些只需执行一次的初始化代码
+        function FuncOnce() {
+            console.log("x")
+            FuncOnce = function () {
+                console.log("y")
+            }
+        }
+        FuncOnce()
+    </script>
+
+    <!-- 4、惰性载入函数 -->
+    <script>
+        // 函数内判断分支较多较复杂时可大大节约资源开销
+        function FuncLazy() {
+            if (a === b) {
+                console.log("x")
+            } else {
+                console.log("y")
+            }
+        }
+        // 换成
+        function FuncLazy1() {
+            let a = 1, b = 1
+            if (a === b) {
+                FuncLazy1 = function () {
+                    console.log("x")
+                }
+            } else {
+                FuncLazy1 = function () {
+                    console.log("y")
+                }
+            }
+            return FuncLazy1()
+        }
+        FuncLazy1()
+    </script>
+
+    <!-- 检测非空参数 -->
+    <script>
+        function IsRequired() {
+            throw new Error("param is required")
+        }
+        function FuncNull(name = IsRequired()) {
+            console.log("I Love" + name)
+        }
+        // FuncNull()
+        FuncNull(" You")
+    </script>
+
+    <!-- 字符串创建函数 -->
+    <script>
+        const FuncStr = new Function("name", "console.log(\"I Love \" + name)")
+        console.log(FuncStr)
+    </script>
+
+    <!-- 优雅处理错误信息 -->
+    <!-- <script>
+        try {
+            Func()
+        } catch (e) {
+            location.href = "https://stackoverflow.com/search?1=[js]+" + e.message
+        }
+    </script> -->
+
+    <!-- 优雅处理Async/Await参数 -->
+    <script>
+        function AsyncTo(promise) {
+            return promise.then(data => [null, data]).catch(err => [err])
+        }
+        const [err, res] = await AsyncTo(Func())
+        console.log(err, res)
+    </script>
+
+    <!-- 优雅处理多个函数返回值 -->
+    <script>
+        function FuncTotal() {
+            return Promise.all([
+                fetch("/user"),
+                fetch("/comment")
+            ])
+        }
+        const [user, comment] = await FuncTotal()    // 需要在async的包围下使用
+    </script>
+</body>
+
+</html>

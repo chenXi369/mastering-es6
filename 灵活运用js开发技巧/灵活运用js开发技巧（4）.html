@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数组技巧</title>
+</head>
+
+<body>
+    <!-- 克隆数组 -->
+    <script>
+        const _arr = [0, 2, 4]
+        const arr = [..._arr]
+        console.log(arr)
+    </script>
+
+    <!-- 合并数组 -->
+    <script>
+        const arr1 = [0, 1, 2]
+        const arr2 = [3, 4, 5]
+        const newArr = [...arr1, ...arr2]
+        console.log(newArr)
+    </script>
+
+    <!-- 数组去重 -->
+    <!-- 只适用于一维数组 -->
+    <script>
+        const setArr = [...new Set([0, 1, 1, null, null])]
+        const setArr1 = [...new Set([0, 1, 1, null, null, [null, 1]])]
+        console.log(setArr, setArr1)
+    </script>
+
+    <!-- 混淆数组 -->
+    <script>
+        const mixedArr = [0, 1, 2, 3, 4, 5].slice().sort(() => Math.random() - .5)
+        console.log(mixedArr)
+    </script>
+
+    <!-- 清空数组 -->
+    <script>
+        const zeroArr = [0, 1, 2, 3]
+        zeroArr.length = 0
+        console.log(zeroArr)
+    </script>
+
+    <!-- 截断数组 -->
+    <script>
+        const sliceArr = [0, 1, 2, 3]
+        sliceArr.length = 2
+        console.log(sliceArr)
+    </script>
+
+    <!-- 交换赋值 -->
+    <script>
+        let a = 0
+        let b = 1
+        [a, b] = [b, a]
+        console.log(a, b)
+    </script>
+
+    <!-- 过滤空值 -->
+    <script>
+        const voidArr = [undefined, null, "", 0, false, NaN, 1, 2].filter(Boolean)
+        console.log(voidArr)
+    </script>
+
+    <!-- 数组首部插入成员 -->
+    <script>
+        let topAddArr = [1, 2]
+        topAddArr.unshift(0)
+        topAddArr = [0].concat(topAddArr)
+        topAddArr = [0, ...topAddArr]
+        console.log(topAddArr)
+    </script>
+
+    <!-- 数组尾部插入成员 -->
+    <script>
+        let bottomAddArr = [0, 1]
+        bottomAddArr.push(2)
+        bottomAddArr.concat(2)
+        bottomAddArr[arr.length] = 2
+        bottomAddArr = [...bottomAddArr, 2]
+        console.log(bottomAddArr)
+    </script>
+
+    <!-- 统计数组成员个数 -->
+    <script>
+        const countArr = [0, 1, 1, 2, 2, 2]
+        const count  = countArr.reduce((t, v) => {
+            t[v] = t[v] ? ++t[v] : 1
+            return t
+        }, {})
+        console.log(count)
+    </script>
+
+    <!-- 创建指定长度数组 -->
+    <script>
+        const lengthArr = [...new Array(5).keys()]
+        console.log(lengthArr)
+    </script>
+
+    <!-- 创建指定长度且值相等的数组 -->
+    <script>
+        const valArr = [...new Array(5).fill(3)]
+        console.log(valArr)
+    </script>
+
+    <!-- 用reduce代替map和filter -->
+    <script>
+        const _reduceArr = [0, 1, 2, 3]
+
+        // map
+        const mapArr = _reduceArr.map(v => v * 2)
+        const reduceArr1 = _reduceArr.reduce((t, v) => {
+            t.push(v * 2)
+            return t
+        }, [])
+
+        // filter
+        const filterArr = _reduceArr.filter((v => v > 1))
+        const reduceArr2 = _reduceArr.reduce((t, v) => {
+            v > 1 && t.push(v)
+            return t
+        }, [])
+        console.log(reduceArr2)
+
+        // map 和 filter
+        const mapFilterArr = _reduceArr.map(v => v * 2).filter(v => v > 2)
+        const reduceArr3 = _reduceArr.reduce((t, v) => {
+            v = v * 2
+            v > 2 && t.push(v)
+            return t
+        }, [])
+    </script>
+</body>
+
+</html>

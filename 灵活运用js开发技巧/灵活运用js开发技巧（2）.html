@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数字技巧</title>
+</head>
+<body>
+    <!-- 取整 -->
+    <script>
+        // 代替正数的Math.floor()，代替负数的Math.ceil()
+        const num1 = ~~ -1.69
+        const num2 = -1.69 | 0
+        const num3 = -1.69 >> 0
+        console.log(num1, num2, num3)
+    </script>
+
+    <!-- 转数值 -->
+    <script>
+        // 只对null "" false 数值字符串 有效
+        const num4 = +null
+        const num5 = +""
+        const num6 = +false
+        const num7 = +"169"
+        console.log(num4, num5, num6, num7)
+    </script>
+
+    <!-- 时间戳 -->
+    <script>
+        const timestamp = +new Date("2021-09-23")
+        console.log(timestamp)
+    </script>
+
+    <!-- 精确小数 -->
+    <script>
+        const RoundNum = (num, decimal) => Math.round(num * 10 ** decimal) / 10 ** decimal
+        const num = RoundNum(1.692, 2)
+        console.log(num)
+    </script>
+
+    <!-- 判断奇偶 -->
+    <script>
+        const oddEven = num => !!(num & 1) ? 'odd' : 'even'
+        const oddEvenNum = oddEven(2)
+        console.log(oddEvenNum)
+    </script>
+
+    <!-- 取最小最大值 -->
+    <script>
+        const arr = [1, 2, 3]
+        const min = Math.min(...arr)
+        const max = Math.max(...arr)
+        console.log(min, max)
+    </script>
+
+    <!-- 生成随机范围数 -->
+    <script>
+        const RandomRange = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
+        const randomNum = RandomRange(1, 100)
+        console.log(randomNum)
+    </script>
+</body>
+</html>

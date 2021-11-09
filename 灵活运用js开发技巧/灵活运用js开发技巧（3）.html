@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>布尔值技巧</title>
+</head>
+<body>
+    <!-- （1）短路运算符 -->
+    <script>
+        const a = d && 1
+        const b = d || 1
+        const c = !d
+        console.log(a, b, c)
+    </script>
+
+    <!-- 判断数据类型 -->
+    <script>
+        // 可判断类型：undefined  null  string  number  boolean  array  object  symbol  
+        // data  regexp  function  asyncfunction  arguments  set  map  weakset  weakmap
+        function DataType(tgt, type) {
+            const dataType = Object.prototype.toString.call(tgt).replace(/\[Object (\w+)\]/, "$1").toLowerCase()
+            return type ? dataType === type : dataType
+        }
+        console.log(DataType("young"))
+        console.log(DataType(20190214))
+        console.log(DataType(true))
+        console.log(DataType([], "array"))
+        console.log(DataType({}, "array"))
+    </script>
+
+    <!-- 是否为空数组 -->
+    <script>
+        const arr = []
+        const flag = Array.isArray(arr) && !arr.length
+        console.log(flag)
+    </script>
+
+    <!-- 满足条件时执行 -->
+    <script>
+        const flagA = true       // 条件A
+        const flagB = false      // 条件B
+        function Func() {
+            console.log("满足条件时执行函数已执行！")
+        }
+        (flagA || flagB) && Func()
+        // (flagA || !flagB) && Func()
+        flagA && flagB && Func()
+        flagA && !flagB && Func()
+    </script>
+
+    <!-- 为非假值时执行 -->
+    <script>
+        const flagFalse = false;     // undefined  null  ""  0  false  NaN
+        function Func1() {
+            console.log("为非假值函数已执行！")
+        }
+        !flagFalse && Func1()
+    </script>
+
+    <!-- 数组不为空时执行 -->
+    <script>
+        let arr1 = [1, 2, 3]
+        function FuncArr() {
+            console.log("数组不为空时函数已执行！")
+        }
+        arr1.length && FuncArr()
+    </script>
+
+    <!-- 对象不为空时执行 -->
+    <script>
+        let obj = { a: 0, b: 1, c: 2 }
+        function FuncObj() {
+            console.log("对象不为空时函数已执行！")
+        }
+        Object.keys(obj).length && FuncObj()
+    </script>
+
+    <!-- 函数退出代替条件分支退出 -->
+    <script>
+        let flagCase = false
+        function FunCase() {
+            console.log("函数退出代替分支退出函数已执行！")
+        }
+        if(flagCase) {
+            FunCase()
+            return false
+        }
+        // 改成
+        if(!flagCase) {
+            return FunCase()
+        }
+    </script>
+
+    <!-- switch/case 使用区间 -->
+    <script>
+        const age = 26
+        switch (true) {
+            case isNaN(age): 
+                console.log("not a number")
+                break;
+            case (age < 18):
+                console.log("under age")
+                break;
+            case (age >= 18):
+                console.log("adult")
+                break;
+            default:
+                console.log("please set your age")
+                break;
+        }
+    </script>
+</body>
+</html>

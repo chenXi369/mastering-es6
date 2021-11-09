@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>字符串技巧</title>
+</head>
+<body>
+    <!-- 对比时间 -->
+    <script>
+        const time1 = "2021-02-14 21:00:00"
+        const time2 = "2021-09-23 09:00:00"
+        const overtime = time1 > time2
+        console.log(overtime)
+    </script>
+
+    <!-- 格式化金钱 -->
+    <script>
+        const ThousandNum = num => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        const money = ThousandNum(20190214)
+        console.log(money)
+    </script>
+
+    <!-- 生成随机id -->
+    <script>
+        const RandomId = len => Math.random().toString(36).substr(3, len)
+        const id = RandomId(10)
+        console.log(id)
+    </script>
+
+    <!-- 生成随机色值 -->
+    <script>
+        const RandomColor = () => "#" + Math.floor(Math.random() * 0xffffff).toString(16).padEnd(6, "0")
+        const color = RandomColor()
+        console.log(color)
+    </script>
+
+    <!-- 生成星级评分 -->
+    <script>
+        const startScore = rate => "★★★★★☆☆☆☆☆".slice(5 - rate, 10 - rate)
+        const start = startScore(1)
+        console.log(start)
+    </script>
+    
+    <!-- 操作URL查询参数 -->
+    <script>
+        const params = new URLSearchParams(location.search.replace(/\?/ig, ""))
+        console.log(params.has("young"))
+        console.log(params.get("sex"))
+    </script>
+</body>
+</html>

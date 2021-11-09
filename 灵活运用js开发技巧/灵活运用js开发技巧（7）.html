@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM skill</title>
+</head>
+<body>
+    <!-- 显示全部DOM边框 -->
+    <script>
+        // 调试页面元素边界时使用
+        [].forEach.call($$("*"), dom => {
+            dom.style.outline = "1px soli #" + (~~(Math.random() * (1 << 24))).toString(16)
+        })
+    </script>
+
+    <!-- 自适应页面 -->
+    <script>
+        // 页面基于一张设计图但需做多款机型自适应，元素尺寸使用rem
+        function AutoResponse(width = 750) {
+            const target = document.documentElement
+            target.clientWidth >= 600
+                ? (target.style.fontSize = "80px")
+                : (target.style.fontSize = target.clientWidth / width * 100 + "px")
+        }
+    </script>
+
+    <!-- 存取LocalStorage -->
+    <script>
+        const love = JSON.parse(localStorage.getItem("love"))
+        localStorage.setItem("love", JSON.stringify("I Love You"))
+        console.log(localStorage.getItem("love"))
+    </script>
+</body>
+</html>

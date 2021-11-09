@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>对象技巧</title>
+</head>
+<body>
+    <!-- 1、克隆对象 -->
+    <script>
+        const _obj = { a: 0, b: 1 }
+        const _obj1 = { ..._obj }
+        const _obj2 = JSON.parse(JSON.stringify(_obj))
+        console.log(_obj1, _obj2)
+    </script>
+
+    <!-- 2、合并对象 -->
+    <script>
+        const obj1 = {a: 0, b: 1, c: 2}
+        const obj2 = {d: 3, e: 4}
+        const concatObj = {...obj1, ...obj2}
+        console.log(concatObj)
+    </script>
+
+    <!-- 3、对象字面量 -->
+    <script>
+        const env = "prod"
+        const link = {
+            dev: "Development Address",
+            test: "Testing Address",
+            prod: "Production Address"
+        }[env]
+        console.log(link)
+    </script>
+
+    <!-- 4、对象变量属性 -->
+    <script>
+        const flag = false
+        const flagObj = {
+            a: 0,
+            b: 1,
+            [flag ? 'c' : 'd']: 2
+        }
+        console.log(flagObj)
+    </script>
+
+    <!-- 5、创建纯空对象 -->
+    <script>
+        const nullObj = Object.create(null)
+        Object.prototype.a = 0
+        console.log(nullObj)
+    </script>
+
+    <!-- 6、删除对象无用属性 -->
+    <script>
+        const deleteObj = { a: 0, b: 1, c: 2 }          // 只想拿b和c
+        const { a, ...rest } = deleteObj                // 用剩余参数来实现删除对象无用属性
+        console.log(rest)
+    </script>
+
+    <!-- 7、解构对象属性嵌套 -->
+    <script>
+        const deconstructObj = { a: 0, b: 1, c: { d: 2, e: 3}}
+        const { c: { d, e } } = deconstructObj
+        console.log(deconstructObj)
+    </script>
+</body>
+</html>
