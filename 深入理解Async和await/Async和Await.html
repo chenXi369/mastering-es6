@@ -44,6 +44,111 @@
         }
         testAwt();
     </script>
+
+    <script>
+        function testAsy4(x) {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    resolve(x)
+                }, 3000)
+            })
+        }
+        async function testAwt2() {
+            let result = await testAsy4("3秒后的hello world")
+            console.log(result)
+            console.log("lcc")
+        }
+        testAwt2()
+        console.log("lisir")
+    </script>
+
+    <script>
+        function takeLongTime() {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    resolve("long_time_value")
+                }, 1000)
+            })
+        }
+        async function test() {
+            let v = await takeLongTime()
+            console.log(v)
+        }
+        test()
+    </script>
+
+    <!-- 一个业务，分多个步骤完成，每一步都是异步的，且依赖上一步的结果。
+        我们分别用Promise.then() 和 async / await 来简单模拟一下：
+    -->
+    <script>
+        function takeLongTime(n) {
+            return new Promise(resolve => {
+                setTimeout(() => resolve(n + 200), n)
+            })
+        }
+
+        function step1(n) {
+            console.log(`step1 width ${n}`)
+            return takeLongTime(n)
+        }
+        function step2(n) {
+            console.log(`step2 width ${n}`)
+            return takeLongTime(n)
+        }
+        function step3(n) {
+            console.log(`step3 width ${n}`)
+            return takeLongTime(n)
+        }
+
+        function dolt() {
+            console.time("dolt")
+            let time1 = 300
+            // 这里的回调嵌套很深  阅读效果不好
+            step1(time1).then((time2) => {
+                step2(time2).then((time3) => {
+                    step3(time3).then((res) => {
+                        console.log(`res is ${res}`)
+                        console.timeEnd("dolt");
+                    })
+                })
+            })
+        }
+
+        dolt()
+    </script>
+
+    <script>
+        // 更方便阅读  耗时更短
+        async function Dolt() {
+            console.time("Dolt")
+            let time1 = 300
+            let time2 = await step1(time1)
+            let time3 = await step2(time2)
+            let result = await step3(time3)
+            console.log(`result is ${result}`)
+            console.timeEnd("Dolt")
+        }
+
+        Dolt()
+    </script>
+
+    <!-- 当Promise返回rejected时 -->
+    <script>
+        async function myFunction() {
+            try {
+                await somethingThatReturnAPromise();
+            } catch (err) {
+                console.log(err);
+            }
+        }
+
+        //另一种写法
+        async function myFunction() {
+            await somethingThatReturnAPromise().catch(function (err) {
+                console.log(err);
+            })
+        }
+    </script>
 </body>
 
 </html>
