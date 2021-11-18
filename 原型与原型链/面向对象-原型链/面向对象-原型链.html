@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="wrap"></div>
+    <script>
+        // 原型链
+
+        /*
+            teacher 实例对象，当我们去执行 teacher 的 teach（）方法时，其本身是没有的
+            这时候就会从 teacher 的 __proto__ 隐式原型对指向的 Teacher 这个类的显示原型
+            prototype 上去找这个 teach（）方法，然后执行掉
+
+            当 teacher 实例对象要去执行 drink（）方法时，它发现在 Teacher 的显示原型
+            prototype 上找不到这个对象，这时候因为 Teacher.prototype 它同样是个对象
+            即Teacher.prototype对象也会有一个 __proto__ 的隐式原型，这个隐式原型会  
+            指向它所继承的 Person 类的显示原型 prototype 上，有这个方法，然后执行掉
+
+            概念：当我们访问一个对象的属性或者方法时，首先它会从自身去找，如果找不到，它就会往它的
+            原型上去找，还是找不到的话，他就会往原型的原型上去找，就形成一个链式结构，即为原型链
+            Person类会继承与Object这个类，Person的__proto__会指向 Object 的显实对象protoType 
+            Object.prototype 这个对象的隐式原型__proto__是 null
+        */
+
+        class Person {
+            constructor(name) {
+                this.name = name
+            }
+
+            drink() {
+                console.log("我每天都需要喝水")
+            }
+        }
+
+        class Teacher extends Person {
+            constructor(name, subject) {
+                super(name)
+                this.subject = subject
+            }
+
+            teach() {
+                console.log(`我是${this.name}，教${this.subject}`)
+            }
+        }
+
+        const teacher = new Teacher("老李", "前端开发")
+        console.log(teacher)
+        teacher.teach()
+        teacher.drink()
+
+        // 判断一个属性或者方法是否在对象自身身上  -- hasOwnProperty() 方法 
+        console.log(teacher.hasOwnProperty("name"))
+        console.log(teacher.hasOwnProperty("teach"))
+
+        let newObj = {}
+        console.log(newObj)
+    </script>
+</body>
+</html>

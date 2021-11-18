@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="wrap"></div>
+    <script>
+        /*
+            总结：每个对象都有一个原型，这个原型一般我们称为隐式原型
+            这个隐式原型会指向构建实例的类的显示原型
+            当我们在一个对象上查找对应的属性或者方法的时候
+            如果找不到对应的属性挥着方法就会向其隐式原型上找
+        */
+
+        // 对象 阿飞
+        // var afei = {
+        //     name: "阿飞",
+        //     age: 18,
+        //     campany: "锤子"
+        // };
+
+        // // 对象 乌拉拉
+        // var wulala = {
+        //     name: "乌拉拉",
+        //     age: 20,
+        //     company: "百度"
+        // }
+
+        // 构造函数 （类）
+        function Person(n, a, s) {
+            this.name = n
+            this.age = a
+            this.sex = s
+            // this.company = "大锤锤"    
+        }
+
+        // 在构造函数Person中 company 是共用的  实例化对象都可以公共使用
+        Person.prototype.company = "大锤锤"
+
+        // 约定new 后面的首字母要大写
+        var afei = new Person("阿飞", 18, "男")      // 类的实例化
+        var wulala = new Person("乌拉拉", 20, "女")
+
+        console.log(afei)
+        console.log(wulala)
+
+        console.log(afei.company)
+        console.log(wulala.company)
+    </script>
+</body>
+
+</html>

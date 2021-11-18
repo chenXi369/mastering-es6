@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // __proto__是隐式原型 它也是个对象
+        class Person {
+            constructor(name, score) {
+                this.name = name
+                this.score = score
+            }
+
+            drink() {
+                console.log("我每天都要喝水！")
+            }
+        }
+
+        class Student extends Person {
+            constructor(name, score) {
+                super(name, score)
+            }
+            introduce() {
+                console.log(`我是${this.name}，考了${this.score}分`)
+            }
+        }
+
+        const student = new Student("张三", 99)
+        console.log(student)
+        student.introduce()
+        student.drink()
+    </script>
+</body>
+</html>

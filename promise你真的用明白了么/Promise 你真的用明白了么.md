@@ -31,7 +31,7 @@ Promise.resolve()
     })
 ```
 
-答案：`then1 -> then1-1 -> then2`。
+答案：`then1 -> then1-1 -> then2 -> then1-2 -> then3`。
 
 **结论：链式调用中，只有前一个 `then` 的回调执行完毕后，跟着的 `then` 中的回调才会被加入到微任务队列。**
 

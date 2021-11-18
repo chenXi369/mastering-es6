@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 面向对象  抽象，封装，继承，多态 -->
+    <div id="wrap"></div>
+    <script>
+        // 对象 阿飞
+        // var afei = {
+        //     name: "阿飞",
+        //     age: 18,
+        //     campany: "锤子"
+        // };
+
+        // // 对象 乌拉拉
+        // var wulala = {
+        //     name: "乌拉拉",
+        //     age: 20,
+        //     company: "百度"
+        // }
+
+        // 可以通过封装函数来实现
+        function person(n, a) {
+            var obj = {}
+
+            obj.name = n
+            obj.age = a
+            obj.company = "大锤锤"
+
+            return obj
+        }
+
+        var afei = person("阿飞", 18)
+        var wulala = person("乌拉拉", 20)
+
+        /* new 关键字
+            new 后面会跟上一个函数
+            
+        在函数执行前加new 会对函数有什么影响么？
+        1. 函数内部会产生一个空对象，内部this指向这个对象
+        2. 函数默认返回这个对象
+
+        // new Object()
+        // new Date()
+        // new Image()
+
+        */
+
+        function a (){
+            console.log(this)    // 指向了 a 对象
+            this.x = 10
+        }
+
+        var L = new a()
+        console.log(L)
+        // var L = a()
+        // new a()
+    </script>
+</body>
+</html>
